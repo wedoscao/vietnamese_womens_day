@@ -8,7 +8,7 @@ It’s a tribute to all the amazing women who inspire, care, and contribute ever
 ## 🎉 About the Project
 
 - Built using **Vite** for blazing fast development and build.  
-- Styled with **Tailwind CSS** and **Animate.css**.  
+- Styled with **Tailwind CSS**.  
 - Includes festive animations, quotes, and messages dedicated to Vietnamese Women’s Day.  
 
 The goal is simple: to spread love, gratitude, and joy on this special day!  

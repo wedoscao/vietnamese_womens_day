@@ -2,10 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 
 interface BouncingTextProps {
     className?: string;
-    text?: string;
+    text: string;
 }
 
-const BouncingText = ({ className = '', text = '' }: BouncingTextProps) => {
+const BouncingText = ({ className = '', text }: BouncingTextProps) => {
     const [position, setPosition] = useState({
         x: Math.random() * (window.innerWidth - 200),
         y: Math.random() * (window.innerHeight - 100)
