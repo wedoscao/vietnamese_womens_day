@@ -29,12 +29,12 @@ const BouncingText = ({ className = '', text }: BouncingTextProps) => {
                 let newVelY = velocity.y;
 
                 if (newX <= 0 || newX + rect.width >= window.innerWidth) {
-                    newVelX = -velocity.x * 0.95;
+                    newVelX = -velocity.x;
                     newX = newX <= 0 ? 0 : window.innerWidth - rect.width;
                 }
 
                 if (newY <= 0 || newY + rect.height >= window.innerHeight) {
-                    newVelY = -velocity.y * 0.95;
+                    newVelY = -velocity.y;
                     newY = newY <= 0 ? 0 : window.innerHeight - rect.height;
                 }
 
