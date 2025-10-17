@@ -75,7 +75,7 @@ function Wishes({ wishes, speed = 1, className = "" }: WishesProps) {
                     left: position.x,
                     transform: 'translateX(-50%)'
                 }}>
-                    {wishes.map((wish, index) => (<div key={index} className={`${className}`}>{wish}</div>))}
+                    {wishes.map((wish, index) => (<div key={index} className={`select-none cursor-default ${className}`}>{wish}</div>))}
                 </div>
             </> :
             <></>

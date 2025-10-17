@@ -11,7 +11,7 @@ function App() {
         <>
             <WishingProvider>
                 <div className="w-full h-full bg-[#F8E8E8]">
-                    <Wishes wishes={wishes} speed={1} className="font-bold text-3xl"></Wishes>
+                    <Wishes wishes={wishes} speed={2} className="font-bold text-3xl"></Wishes>
                     <RandomSlidingUpTexts texts={texts} className="font-bold" speed={2} />
                 </div>
             </WishingProvider >
