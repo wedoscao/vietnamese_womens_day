@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useWishing } from "../contexts/WishingProvider";
 
 interface WishesProps {
-    wishes: string[],
-    speed?: number,
-    className?: string
+    wishes: string[];
+    speed?: number;
+    className?: string;
 }
 
 function Wishes({ wishes, speed = 1, className = "" }: WishesProps) {
@@ -19,7 +19,7 @@ function Wishes({ wishes, speed = 1, className = "" }: WishesProps) {
     useEffect(() => {
         if (isWishing) {
             const animate = () => {
-                setPosition(prev => {
+                setPosition((prev) => {
                     if (!wishesRef.current) {
                         return prev;
                     }
@@ -35,52 +35,61 @@ function Wishes({ wishes, speed = 1, className = "" }: WishesProps) {
                     return {
                         x: prev.x,
                         y: newY
-                    }
-                })
+                    };
+                });
 
-                animateRef.current = requestAnimationFrame(animate)
-            }
+                animateRef.current = requestAnimationFrame(animate);
+            };
 
-            animateRef.current = requestAnimationFrame(animate)
+            animateRef.current = requestAnimationFrame(animate);
         }
 
         return () => {
             if (animateRef.current) {
-                cancelAnimationFrame(animateRef.current)
+                cancelAnimationFrame(animateRef.current);
             }
-        }
-    }, [speed, isWishing])
+        };
+    }, [speed, isWishing]);
 
     useEffect(() => {
         const handleResize = () => {
             setPosition((prev) => {
                 return {
                     x: window.innerWidth / 2,
-                    y: prev.y,
-                }
-            })
+                    y: prev.y
+                };
+            });
         };
 
-        window.addEventListener("resize", handleResize)
+        window.addEventListener("resize", handleResize);
 
-        return () => window.removeEventListener("resize", handleResize)
-    }, [])
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
-
-    return (
-        isWishing ?
-            <>
-                <div className="fixed" ref={wishesRef} style={{
+    return isWishing ? (
+        <>
+            <div
+                className="fixed"
+                ref={wishesRef}
+                style={{
                     top: position.y,
                     left: position.x,
-                    transform: 'translateX(-50%)'
-                }}>
-                    {wishes.map((wish, index) => (<div key={index} className={`select-none cursor-default ${className}`}>{wish}</div>))}
-                </div>
-            </> :
-            <></>
+                    transform: "translateX(-50%)"
+                }}
+            >
+                {wishes.map((wish, index) => (
+                    <div
+                        key={index}
+                        className={`select-none cursor-default text-center pb-4 ${className}`}
+                    >
+                        {wish}
+                    </div>
+                ))}
+            </div>
+        </>
+    ) : (
+        <></>
     );
 }
-
 
 export default Wishes;

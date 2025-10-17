@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 
 interface BouncingTextProps {
     className?: string;
     text: string;
 }
 
-const BouncingText = ({ className = '', text }: BouncingTextProps) => {
+const BouncingText = ({ className = "", text }: BouncingTextProps) => {
     const [position, setPosition] = useState({
         x: Math.random() * (window.innerWidth - 200),
         y: Math.random() * (window.innerHeight - 100)
@@ -19,7 +19,7 @@ const BouncingText = ({ className = '', text }: BouncingTextProps) => {
 
     useEffect(() => {
         const animate = () => {
-            setPosition(prev => {
+            setPosition((prev) => {
                 if (!textRef.current) return prev;
 
                 const rect = textRef.current.getBoundingClientRect();
@@ -64,7 +64,7 @@ const BouncingText = ({ className = '', text }: BouncingTextProps) => {
             style={{
                 left: `${position.x}px`,
                 top: `${position.y}px`,
-                transition: 'none'
+                transition: "none"
             }}
         >
             {text}
