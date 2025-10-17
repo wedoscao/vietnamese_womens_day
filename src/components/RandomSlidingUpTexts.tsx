@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo, use } from "react";
 import { useWishing } from "../contexts/WishingProvider";
 
 const randomSizes = ["text-5xl", "text-6xl", "text-7xl", "text-8xl"];
@@ -15,6 +15,7 @@ function RandomSlidingUpTexts({ className = '', speed = 1, texts }: RandomSlidin
         x: 0,
         y: window.innerHeight,
     });
+    const [random, setRandom] = useState(0);
     const { isWishing } = useWishing();
 
     const textsRef = useRef<HTMLDivElement>(null);
@@ -22,7 +23,7 @@ function RandomSlidingUpTexts({ className = '', speed = 1, texts }: RandomSlidin
 
     const xOffsets = useMemo(() => {
         return texts.map(() => { return Math.random() * (window.innerWidth - 200) })
-    }, [texts, innerWidth]);
+    }, [texts, innerWidth, random]);
 
     const sizes = useMemo(() => {
         return texts.map(() => {
@@ -30,7 +31,7 @@ function RandomSlidingUpTexts({ className = '', speed = 1, texts }: RandomSlidin
             const i = Math.floor(random * randomSizes.length);
             return randomSizes[i];
         })
-    }, [texts])
+    }, [texts, random])
 
     useEffect(() => {
         if (!isWishing) {
@@ -44,6 +45,7 @@ function RandomSlidingUpTexts({ className = '', speed = 1, texts }: RandomSlidin
 
                     if (newY <= -rect.height) {
                         newY = window.innerHeight;
+                        setRandom(random + 1);
                     }
                     return { x: prev.x, y: newY };
                 })
