@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo, use } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useWishing } from "../contexts/WishingProvider";
 
 const randomSizes = ["text-5xl", "text-6xl", "text-7xl", "text-8xl"];
