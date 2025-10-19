@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect, useMemo } from "react";
-import { useWishing } from "../contexts/WishingProvider";
+import { useOpening } from "../contexts/OpeningProvider";
+import { useFirstSliding } from "../contexts/FirstSlidingProvider";
+import { useClosing } from "../contexts/ClosingProvider";
 
-const RANDOM_SIZES = ["text-xl", "text-2xl", "text-3xl", "text-4xl"];
+const RANDOM_SIZES = ["text-lg", "text-xl", "text-2xl", "text-3xl"];
 
 const TEXT_PADDING = 80;
 
@@ -16,12 +18,13 @@ function RandomSlidingUpTexts({
     speed = 1,
     texts
 }: RandomSlidingUpTextsProps) {
+    const { isFirst, setIsFirst } = useFirstSliding();
+    const { isOpening } = useOpening();
+    const { setIsClosing } = useClosing();
     const [position, setPosition] = useState({
         x: 0,
         y: window.innerHeight
     });
-    const [random, setRandom] = useState(0);
-    const { isWishing } = useWishing();
     const textsRef = useRef<HTMLDivElement>(null);
     const animateRef = useRef<number | null>(null);
 
@@ -31,16 +34,16 @@ function RandomSlidingUpTexts({
             const i = Math.floor(random * RANDOM_SIZES.length);
             return RANDOM_SIZES[i];
         });
-    }, [texts, random]);
+    }, [texts]);
 
     const xOffsets = useMemo(() => {
         return texts.map(() => {
             return Math.random() * (window.innerWidth - TEXT_PADDING * 4);
         });
-    }, [texts, window.innerWidth, random]);
+    }, [texts, window.innerWidth]);
 
     useEffect(() => {
-        if (!isWishing) {
+        if (!isOpening && isFirst) {
             const animate = () => {
                 setPosition((prev) => {
                     if (!textsRef.current) {
@@ -49,8 +52,8 @@ function RandomSlidingUpTexts({
                     const rect = textsRef.current.getBoundingClientRect();
                     let newY = prev.y - speed;
                     if (newY <= -rect.height) {
-                        newY = window.innerHeight;
-                        setRandom(random + 1);
+                        setIsFirst(false);
+                        setIsClosing(true);
                     }
                     return { x: prev.x, y: newY };
                 });
@@ -63,7 +66,7 @@ function RandomSlidingUpTexts({
                 cancelAnimationFrame(animateRef.current);
             }
         };
-    }, [isWishing, speed]);
+    }, [isOpening, isFirst, speed]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -73,13 +76,12 @@ function RandomSlidingUpTexts({
                     y: prev.y
                 };
             });
-            setRandom((prev) => prev + 1);
         };
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    return !isWishing ? (
+    return !isOpening && isFirst ? (
         <>
             <div
                 ref={textsRef}

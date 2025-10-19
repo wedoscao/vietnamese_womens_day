@@ -1,64 +1,44 @@
+import Closing from "./components/Closing";
+import Opening from "./components/Opening";
 import RandomSlidingUpTexts from "./components/RandomSlidingUpTexts";
-import Wishes from "./components/Wishes";
-import { WishingProvider } from "./contexts/WishingProvider";
-import wishes from "./wishes.json";
+import { ClosingProvider } from "./contexts/ClosingProvider";
+import { FirstSlidingProvider } from "./contexts/FirstSlidingProvider";
+import { OpeningProvider } from "./contexts/OpeningProvider";
 
-const texts = [
-    "Chúc các bạn nữ luôn xinh đẹp",
-    "Chúc các bạn nữ có thật nhiều sức khoẻ",
-    "Chúc các bạn nữ có kết quả học tập tốt",
-    "Chúc các bạn nữ luôn xinh đẹp",
-    "Chúc các bạn nữ có thật nhiều sức khoẻ",
-    "Chúc các bạn nữ có kết quả học tập tốt",
-    "Chúc các bạn nữ luôn xinh đẹp",
-    "Chúc các bạn nữ có thật nhiều sức khoẻ",
-    "Chúc các bạn nữ có kết quả học tập tốt",
-    "Chúc các bạn nữ luôn xinh đẹp",
-    "Chúc các bạn nữ có thật nhiều sức khoẻ",
-    "Chúc các bạn nữ có kết quả học tập tốt",
-    "Chúc các bạn nữ luôn xinh đẹp",
-    "Chúc các bạn nữ có thật nhiều sức khoẻ",
-    "Chúc các bạn nữ có kết quả học tập tốt",
-    "Chúc các bạn nữ luôn xinh đẹp",
-    "Chúc các bạn nữ có thật nhiều sức khoẻ",
-    "Chúc các bạn nữ có kết quả học tập tốt",
-    "Chúc các bạn nữ luôn xinh đẹp",
-    "Chúc các bạn nữ có thật nhiều sức khoẻ",
-    "Chúc các bạn nữ có kết quả học tập tốt",
-    "Chúc các bạn nữ luôn xinh đẹp",
-    "Chúc các bạn nữ có thật nhiều sức khoẻ",
-    "Chúc các bạn nữ có kết quả học tập tốt",
-    "Chúc các bạn nữ luôn xinh đẹp",
-    "Chúc các bạn nữ có thật nhiều sức khoẻ",
-    "Chúc các bạn nữ có kết quả học tập tốt",
-    "Chúc các bạn nữ luôn xinh đẹp",
-    "Chúc các bạn nữ có thật nhiều sức khoẻ",
-    "Chúc các bạn nữ có kết quả học tập tốt",
-    "Chúc các bạn nữ luôn xinh đẹp",
-    "Chúc các bạn nữ có thật nhiều sức khoẻ",
-    "Chúc các bạn nữ có kết quả học tập tốt",
-    "Chúc các bạn nữ luôn xinh đẹp",
-    "Chúc các bạn nữ có thật nhiều sức khoẻ",
-    "Chúc các bạn nữ có kết quả học tập tốt"
+import opening from "./opening.json";
+import wishes from "./wishes.json";
+const AFTER_CREDIT = [
+    "Có lẽ bây giờ, nhiều người trong chúng ta đang cảm giác mông lung về lựa chọn đối với ngành này.",
+    "Dù sao thì, hãy luôn nhớ rằng, các bạn đã rất tuyệt vời khi đậu vào đây, và mong rằng các bạn sẽ sống thật tốt, thành công trên con đường mình chọn sau này."
 ];
 
 function App() {
     return (
         <>
-            <WishingProvider>
-                <div className="w-full h-full bg-[#F8E8E8]">
-                    <Wishes
-                        texts={texts}
-                        speed={2}
-                        className="font-bold text-xl"
-                    ></Wishes>
-                    <RandomSlidingUpTexts
-                        texts={wishes}
-                        className="font-bold"
-                        speed={2}
-                    />
-                </div>
-            </WishingProvider>
+            <OpeningProvider>
+                <FirstSlidingProvider>
+                    <ClosingProvider>
+                        {" "}
+                        <div className="w-full h-full bg-[#F8E8E8]">
+                            <Opening
+                                texts={opening}
+                                speed={2}
+                                className="font-bold text-xl"
+                            ></Opening>
+                            <RandomSlidingUpTexts
+                                texts={wishes}
+                                className="font-bold"
+                                speed={3}
+                            />
+                            <Closing
+                                texts={AFTER_CREDIT}
+                                speed={2}
+                                className="font-bold text-xl"
+                            ></Closing>
+                        </div>
+                    </ClosingProvider>
+                </FirstSlidingProvider>
+            </OpeningProvider>
         </>
     );
 }

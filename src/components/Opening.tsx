@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { useWishing } from "../contexts/WishingProvider";
+import { useOpening } from "../contexts/OpeningProvider";
 
-interface WishesProps {
+interface OpeningProps {
     texts: string[];
     speed?: number;
     className?: string;
 }
 
-function Wishes({ texts, speed = 1, className = "" }: WishesProps) {
-    const { isWishing, setIsWishing } = useWishing();
+function Opening({ texts, speed = 1, className = "" }: OpeningProps) {
+    const { isOpening, setIsWishing } = useOpening();
     const [position, setPosition] = useState({
         x: window.innerWidth / 2,
         y: window.innerHeight
@@ -17,7 +17,7 @@ function Wishes({ texts, speed = 1, className = "" }: WishesProps) {
     const animateRef = useRef<number | null>(null);
 
     useEffect(() => {
-        if (isWishing) {
+        if (isOpening) {
             const animate = () => {
                 setPosition((prev) => {
                     if (!textsRef.current) {
@@ -49,7 +49,7 @@ function Wishes({ texts, speed = 1, className = "" }: WishesProps) {
                 cancelAnimationFrame(animateRef.current);
             }
         };
-    }, [speed, isWishing]);
+    }, [speed, isOpening]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -66,7 +66,7 @@ function Wishes({ texts, speed = 1, className = "" }: WishesProps) {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    return isWishing ? (
+    return isOpening ? (
         <>
             <div
                 className="fixed"
@@ -92,4 +92,4 @@ function Wishes({ texts, speed = 1, className = "" }: WishesProps) {
     );
 }
 
-export default Wishes;
+export default Opening;
