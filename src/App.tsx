@@ -12,6 +12,22 @@ const AFTER_CREDIT = [
     "Dù sao thì, hãy luôn nhớ rằng, các bạn đã rất tuyệt vời khi đậu vào đây, và mong rằng các bạn sẽ sống thật tốt, thành công trên con đường mình chọn sau này."
 ];
 
+function shuffle(array: any[]) {
+    let currentIndex = array.length;
+    let newArray = array.slice();
+
+    while (currentIndex != 0) {
+        let randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        [newArray[currentIndex], newArray[randomIndex]] = [
+            newArray[randomIndex],
+            newArray[currentIndex]
+        ];
+    }
+    return newArray;
+}
+
 function App() {
     return (
         <>
@@ -26,7 +42,7 @@ function App() {
                                 className="font-bold text-xl"
                             ></Opening>
                             <RandomSlidingUpTexts
-                                texts={wishes}
+                                texts={shuffle(wishes)}
                                 className="font-bold"
                                 speed={3}
                             />
