@@ -1,4 +1,5 @@
 import Closing from "./components/Closing";
+import Hearts from "./components/Hearts";
 import Opening from "./components/Opening";
 import RandomSlidingUpTexts from "./components/RandomSlidingUpTexts";
 import { ClosingProvider } from "./contexts/ClosingProvider";
@@ -34,8 +35,8 @@ function App() {
             <OpeningProvider>
                 <FirstSlidingProvider>
                     <ClosingProvider>
-                        {" "}
-                        <div className="w-full h-full bg-[#F8E8E8]">
+                        <div className="w-full h-full text-[#E0E0E0]">
+                            <Hearts className="bg-[#121212]" />
                             <Opening
                                 texts={opening}
                                 speed={2}

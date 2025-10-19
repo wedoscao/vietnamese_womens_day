@@ -25,8 +25,9 @@ function RandomSlidingUpTexts({
         x: 0,
         y: window.innerHeight
     });
-    const [maxRandom, setMaxRandom] = useState(window.innerWidth);
     const [xOffsets, setXOffsets] = useState<number[]>([]);
+    const [random, setRandom] = useState(false);
+    const [isLeft, setIsLeft] = useState(true);
     const textsRef = useRef<HTMLDivElement>(null);
     const animateRef = useRef<number | null>(null);
 
@@ -39,26 +40,21 @@ function RandomSlidingUpTexts({
     }, [texts]);
 
     useEffect(() => {
-        let overHalf = 0;
+        const halfWidth = window.innerWidth / 2;
 
         const offsets = texts.map(() => {
+            const maxRandom = isLeft ? window.innerWidth : halfWidth - 1;
             const offset =
                 Math.random() * (maxRandom - TEXT_PADDING * 4 + 1) +
                 TEXT_PADDING;
 
-            if (offset > window.innerWidth / 2) {
-                overHalf++;
-            }
+            setIsLeft((isLeft) => !isLeft);
 
             return offset;
         });
 
         setXOffsets(offsets);
-
-        if (overHalf >= texts.length / 2) {
-            setMaxRandom(window.innerWidth / 2 - 1);
-        }
-    }, [texts, maxRandom, window.innerWidth]);
+    }, [texts, random]);
 
     useEffect(() => {
         if (!isOpening && isFirst) {
@@ -94,6 +90,7 @@ function RandomSlidingUpTexts({
                     y: prev.y
                 };
             });
+            setRandom((prev) => !prev);
         };
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
