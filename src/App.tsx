@@ -39,18 +39,18 @@ function App() {
                             <Hearts className="bg-[#121212]" />
                             <Opening
                                 texts={opening}
-                                speed={2}
-                                className="font-bold text-xl"
+                                speed={1.5}
+                                className="font-bold text-xl xl:text-3xl"
                             ></Opening>
                             <RandomSlidingUpTexts
                                 texts={shuffle(wishes)}
                                 className="font-bold"
-                                speed={2}
+                                speed={1.5}
                             />
                             <Closing
                                 texts={AFTER_CREDIT}
-                                speed={2}
-                                className="font-bold text-xl"
+                                speed={1.5}
+                                className="font-bold text-xl xl:text-3xl"
                             ></Closing>
                         </div>
                     </ClosingProvider>
