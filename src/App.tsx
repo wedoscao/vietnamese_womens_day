@@ -44,7 +44,7 @@ function App() {
                             <RandomSlidingUpTexts
                                 texts={shuffle(wishes)}
                                 className="font-bold"
-                                speed={3}
+                                speed={2}
                             />
                             <Closing
                                 texts={AFTER_CREDIT}
