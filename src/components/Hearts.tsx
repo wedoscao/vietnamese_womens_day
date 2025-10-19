@@ -50,7 +50,9 @@ function Hearts({ className = "" }: { className?: string }) {
     }, []);
 
     return (
-        <div className={`fixed inset-0 pointer-events-none ${className}`}>
+        <div
+            className={`select-none cursor-default fixed inset-0 pointer-events-none ${className}`}
+        >
             {hearts.map((heart) => (
                 <img
                     key={heart.id}
