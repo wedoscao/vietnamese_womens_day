@@ -2,29 +2,29 @@ import { useEffect, useRef, useState } from "react";
 import { useWishing } from "../contexts/WishingProvider";
 
 interface WishesProps {
-    wishes: string[];
+    texts: string[];
     speed?: number;
     className?: string;
 }
 
-function Wishes({ wishes, speed = 1, className = "" }: WishesProps) {
+function Wishes({ texts, speed = 1, className = "" }: WishesProps) {
     const { isWishing, setIsWishing } = useWishing();
     const [position, setPosition] = useState({
         x: window.innerWidth / 2,
         y: window.innerHeight
     });
-    const wishesRef = useRef<HTMLDivElement>(null);
+    const textsRef = useRef<HTMLDivElement>(null);
     const animateRef = useRef<number | null>(null);
 
     useEffect(() => {
         if (isWishing) {
             const animate = () => {
                 setPosition((prev) => {
-                    if (!wishesRef.current) {
+                    if (!textsRef.current) {
                         return prev;
                     }
 
-                    const rect = wishesRef.current.getBoundingClientRect();
+                    const rect = textsRef.current.getBoundingClientRect();
 
                     const newY = prev.y - speed;
 
@@ -70,19 +70,19 @@ function Wishes({ wishes, speed = 1, className = "" }: WishesProps) {
         <>
             <div
                 className="fixed"
-                ref={wishesRef}
+                ref={textsRef}
                 style={{
                     top: position.y,
                     left: position.x,
                     transform: "translateX(-50%)"
                 }}
             >
-                {wishes.map((wish, index) => (
+                {texts.map((text, index) => (
                     <div
                         key={index}
                         className={`select-none cursor-default text-center pb-4 ${className}`}
                     >
-                        {wish}
+                        {text}
                     </div>
                 ))}
             </div>

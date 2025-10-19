@@ -3,7 +3,7 @@ import { useWishing } from "../contexts/WishingProvider";
 
 const RANDOM_SIZES = ["text-xl", "text-2xl", "text-3xl", "text-4xl"];
 
-const TEXT_PADDING = 20;
+const TEXT_PADDING = 80;
 
 interface RandomSlidingUpTextsProps {
     className?: string;
@@ -93,12 +93,13 @@ function RandomSlidingUpTexts({
                 {texts.map((text, index) => (
                     <div
                         key={index}
-                        className={`select-none cursor-default pb-2 ${sizes[index]} ${className}`}
+                        className={`select-none cursor-default pb-4 ml-4 ${sizes[index]} ${className}`}
                         style={{
                             marginLeft: xOffsets[index],
                             maxWidth: `${window.innerWidth - xOffsets[index] - TEXT_PADDING}px`,
                             wordWrap: "break-word",
-                            overflowWrap: "break-word"
+                            overflowWrap: "break-word",
+                            whiteSpace: "pre-line"
                         }}
                     >
                         {text}
